@@ -26,7 +26,7 @@ func SplitArray(nums []int) bool {
 			}
 		}(&full)
 		if index == 0 || full {
-			size = append(max, 1)
+			size = append(size, 1)
 			max = append(max, n)
 		}
 		//fmt.Println(full)

@@ -17,7 +17,7 @@ func MonotoneIncreasingDigits(N int) (I int) {
 	str := strconv.Itoa(N)
 	var getMax func(s string)
 	getMax = func(s string) {
-		for i, _ := range s {
+		for i := range s {
 			if i == len(s) - 1 {
 				return
 			}

@@ -29,3 +29,25 @@ func MonotoneIncreasingDigits(N int) (I int) {
 	getMax(str)
 	return
 }
+
+// 官方题解
+func OfficialMonotoneIncreasingDigits(n int) int {
+	s := []byte(strconv.Itoa(n))
+	i := 1
+	for i < len(s) && s[i] >= s[i-1] {
+		i++
+	}
+	if i < len(s) {
+		for i > 0 && s[i] < s[i-1] {
+			s[i-1]--
+			i--
+			//fmt.Println(s, i)
+		}
+		for i++; i < len(s); i++ {
+			s[i] = '9'
+			//fmt.Println(s, i)
+		}
+	}
+	ans, _ := strconv.Atoi(string(s))
+	return ans
+}

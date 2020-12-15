@@ -10,9 +10,6 @@ import (
 // (Recall that an integer has monotone increasing digits if and only if each pair of adjacent digits x and y satisfy x <= y.)
 
 func MonotoneIncreasingDigits(N int) (I int) {
-	if N < 10 {
-		return N
-	}
 	I = N
 	str := strconv.Itoa(N)
 	var getMax func(s string)

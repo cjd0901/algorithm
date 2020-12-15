@@ -6,6 +6,6 @@ import (
 )
 
 func TestMonotoneIncreasingDigits(t *testing.T) {
-	digits := MonotoneIncreasingDigits(120)
+	digits := MonotoneIncreasingDigits(1)
 	fmt.Println(digits)
 }

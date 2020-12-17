@@ -2,6 +2,7 @@ package golang
 
 // Unique Paths
 // leetCode: https://leetcode-cn.com/problems/unique-paths/
+// dynamic programming
 
 func UniquePaths(m, n int) int {
 	grid := make([][]int, m)

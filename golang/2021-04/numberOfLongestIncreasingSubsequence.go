@@ -4,16 +4,44 @@ package _021_04
 // leetCode: https://leetcode-cn.com/problems/number-of-longest-increasing-subsequence/
 // Given an integer array nums, return the number of longest increasing subsequences.
 
-// TODO: 思路错误
 func NumberOfLongestIncreasingSubsequence(nums []int) int {
-	dp := make([]int, len(nums))
-	dp[0] = 1
-	for i := 1; i < len(nums); i++{
-		if nums[i] <= nums[i-1] {
-			dp[i] = dp[i-1] + 1
-		}else {
-			dp[i] = dp[i-1]
+	n := len(nums)
+	if n == 1 {
+		return 1
+	}
+	dp := make([]int, n)
+	count := make([]int, n)
+	for i := 0; i < n; i++ {
+		dp[i] = 1
+		count[i] = 1
+	}
+	maxL := 0
+	for i := 0; i < n; i++ {
+		for j := 0; j < i; j++ {
+			if nums[i] > nums[j] {
+				if dp[j] + 1 > dp[i] {
+					dp[i] = dp[j] + 1
+					count[i] = count[j]
+				}else if dp[j] + 1 == dp[i] {
+					count[i] += count[j]
+				}
+			}
+			maxL = max(maxL, dp[i])
 		}
 	}
-	return dp[len(nums) - 1]
+
+	res := 0
+	for i := 0; i < n; i++ {
+		if dp[i] == maxL {
+			res += count[i]
+		}
+	}
+	return res
+}
+
+func max(a,b int) int {
+	if a > b {
+		return a
+	}
+	return b
 }

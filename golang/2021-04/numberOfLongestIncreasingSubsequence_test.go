@@ -6,6 +6,6 @@ import (
 )
 
 func TestNumberOfLongestIncreasingSubsequence(t *testing.T) {
-	num := NumberOfLongestIncreasingSubsequence([]int{1, 3, 5, 4, 7, 2, 3, 5})
+	num := NumberOfLongestIncreasingSubsequence([]int{2,2,2,2,2})
 	fmt.Println(num)
 }

@@ -21,12 +21,12 @@ func RotateList(head *ListNode, k int) *ListNode {
 		n++
 	}
 
-	iter.Next = head
 	move := n - k%n
 	if move == n {
 		return head
 	}
 
+	iter.Next = head
 	for move > 0 {
 		iter = iter.Next
 		move--

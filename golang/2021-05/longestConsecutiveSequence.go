@@ -9,6 +9,28 @@ import (
 // Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.
 
 func LongestConsecutiveSequence(nums []int) int {
+	numSet := make(map[int]bool)
+	for _, num := range nums {
+		numSet[num] = true
+	}
+
+	longest := 0
+	for num := range numSet {
+		if !numSet[num-1] {
+			cur := num
+			curL := 1
+			for numSet[cur+1] {
+				cur++
+				curL++
+			}
+			longest = max(longest, curL)
+		}
+	}
+	return longest
+}
+
+// TODO: dp 有问题
+func LongestConsecutiveSequence2(nums []int) int {
 	sort.Ints(nums)
 	n := len(nums)
 	if n == 0 {

@@ -3,11 +3,28 @@
 struct Solution {}
 
 impl Solution {
+    // pub fn stone_game(piles: Vec<i32>) -> bool {
+    //     true
+    // }
     pub fn stone_game(piles: Vec<i32>) -> bool {
-        true
+        let n = piles.len();
+        let mut dp: Vec<Vec<i32>> = vec![vec![0; n]; n];
+        for i in 0..n {
+            dp[i][i] = piles[i];
+        }
+        for i in (0..n-1).rev() {
+            for j in i+1..n {
+                dp[i][j] = (piles[i] - dp[i+1][j]).max(piles[j] - dp[i][j-1]);
+            }
+        }
+        return dp[0][n-1] > 0
     }
 }
 
+fn main() {
+    let ans:bool = Solution::stone_game(vec![5,3,4,5]);
+    println!("{}", ans);
+}
 // 亚历克斯和李用几堆石子在做游戏。偶数堆石子排成一行，每堆都有正整数颗石子 piles[i] 。
 
 // 游戏以谁手中的石子最多来决出胜负。石子的总数是奇数，所以没有平局。

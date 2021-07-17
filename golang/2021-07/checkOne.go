@@ -8,7 +8,6 @@ func KLengthApart(nums []int, k int) bool {
 		if n == 1 {
 			if preIndex == -1 || i - preIndex > k {
 				preIndex = i
-				continue
 			} else {
 				return false
 			}

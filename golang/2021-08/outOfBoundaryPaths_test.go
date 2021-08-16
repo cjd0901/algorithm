@@ -6,6 +6,6 @@ import (
 )
 
 func TestOutOfBoundaryPaths(t *testing.T) {
-	ans := OutOfBoundaryPaths(8, 7, 16, 1 ,5)
+	ans := OutOfBoundaryPaths2(1, 3, 3, 0,1)
 	fmt.Println(ans)
 }

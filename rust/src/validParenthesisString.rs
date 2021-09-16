@@ -36,9 +36,35 @@ impl Solution {
         println!("{:?}", dp);
         dp[0][l-1]
     }
+    pub fn check_valid_string2(s: String) -> bool {
+        let chs: Vec<char> = s.chars().collect();
+        let (mut left_parentheses, mut asterisk) = (vec![], vec![]);
+        for (i, ch) in chs.iter().enumerate() {
+            if *ch == '(' {
+                left_parentheses.push(i);
+            } else if *ch == '*' {
+                asterisk.push(i);
+            } else if left_parentheses.len() > 0 {
+                left_parentheses.pop();
+            } else if asterisk.len() > 0 {
+                asterisk.pop();
+            } else {
+                return false;
+            }
+        }
+        let (mut i, mut j) = (left_parentheses.len() as i32-1, asterisk.len() as i32-1);
+        while i >= 0 && j >= 0 {
+            if left_parentheses[i as usize] > asterisk[j as usize] {
+                return false;
+            }
+            i -= 1;
+            j -= 1;
+        }
+        i < 0
+    }
 }
 
 fn main() {
-    let ans = Solution::check_valid_string(String::from("(*)"));
+    let ans = Solution::check_valid_string2(String::from("((((()(()()()*()(((((*)()*(**(())))))(())()())(((())())())))))))(((((())*)))()))(()((*()*(*)))(*)()"));
     println!("{}", ans);
 }

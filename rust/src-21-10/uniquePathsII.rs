@@ -30,11 +30,32 @@ impl Solution {
         }
         dp[m-1][n-1]
     }
+
+    pub fn unique_paths_with_obstacles2(obstacle_grid: Vec<Vec<i32>>) -> i32 {
+        let m = obstacle_grid.len();
+        let n = obstacle_grid[0].len();
+        let mut dp = vec![0; n];
+        if obstacle_grid[0][0] == 0 {
+            dp[0] = 1;
+        }
+        for i in 0..m {
+            for j in 0..n {
+                if obstacle_grid[i][j] == 1 {
+                    dp[j] = 0;
+                    continue;
+                }
+                if j > 0 {
+                    dp[j] += dp[j-1];
+                }
+            }
+        }
+        dp[dp.len()-1]
+    }
 }
 
 fn main() {
     let mut v = vec![];
     v.push(vec![0, 0]);
-    let ans = Solution::unique_paths_with_obstacles(v);
+    let ans = Solution::unique_paths_with_obstacles2(v);
     println!("{}", ans);
 }

@@ -15,6 +15,41 @@ impl Solution {
         }
         ans
     }
+
+    // 拓扑排序
+    pub fn loud_and_rich2(richer: Vec<Vec<i32>>, quiet: Vec<i32>) -> Vec<i32> {
+        let len = quiet.len();
+        let mut edges: Vec<Vec<i32>> = vec![vec![]; len];
+        let mut in_degrees = vec![0; len];
+        for rich in richer.iter() {
+            edges[rich[0] as usize].push(rich[1]);
+            in_degrees[rich[1] as usize] += 1;
+        }
+        let mut ans = vec![0; len];
+        for i in 0..len {
+            ans[i] = i as i32;
+        }
+        let mut q = Vec::new();
+        for (i, in_degree) in in_degrees.iter().enumerate() {
+            if *in_degree == 0 {
+                q.push(i as i32);
+            }
+        }
+        while q.len() > 0 {
+            let t = q.pop().unwrap() as usize;
+            for edge in edges[t].iter() {
+                let edge = *edge;
+                if quiet[ans[t] as usize] < quiet[ans[edge as usize] as usize] {
+                    ans[edge as usize] = ans[t];
+                }
+                in_degrees[edge as usize] -= 1;
+                if in_degrees[edge as usize] == 0 {
+                    q.push(edge);
+                }
+            }
+        }
+        ans
+    }
 }
 
 fn search_min(edges: &Vec<Vec<i32>>, ans: &mut Vec<i32>, quiet: &Vec<i32>, idx: usize) {
@@ -34,6 +69,6 @@ fn main() {
     let mut v = Vec::new();
     v.push(vec![0,2]);
     v.push(vec![1,2]);
-    let ans = Solution::loud_and_rich(v, vec![0,1,2]);
+    let ans = Solution::loud_and_rich2(v, vec![0,1,2]);
     println!("{:?}", ans);
 }

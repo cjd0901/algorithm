@@ -13,6 +13,7 @@ func Slimes(N int, A []int) int {
 	dp := make([][]int, N+1)
 	for i := range dp {
 		dp[i] = make([]int, N+1)
+		dp[i][i+1] = 0 // 因为只剩一个，不需要任何cost
 	}
 
 	for l := 2; l <= N; l++ {

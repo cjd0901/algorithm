@@ -21,7 +21,39 @@ impl Solution {
         }
         ans
     }
+
+    pub fn min_deletion_size2(strs: Vec<String>) -> i32 {
+        let (n, m) = (strs.len(), strs[0].len());
+        let mut ans = 0;
+        let mut is_sorted = vec![false; n-1];
+        'next: for j in 0..m {
+            let mut new_sorted = is_sorted.clone();
+            for i in 1..n {
+                let a = strs[i-1].chars().nth(j).unwrap();
+                let b = strs[i].chars().nth(j).unwrap();
+                if !is_sorted[i-1] {
+                    if a > b {
+                        ans += 1;
+                        continue 'next;
+                    } else if a < b {
+                        new_sorted[i-1] = true;
+                    }
+                }
+            }
+            is_sorted = new_sorted;
+        }
+       ans
+    }
 }
 
-fn main() {}
+fn main() {
+    let _ = Solution::min_deletion_size2(
+        vec![
+            String::from("vdy"),
+            String::from("vei"),
+            String::from("zvc"),
+            String::from("zld")
+        ]
+    );
+}
 
